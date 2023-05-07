@@ -1,7 +1,7 @@
 {
-    "name": "journal-custom",
+    "name": "Jam Journal",
     "description": "Includes search, issues -> posts, nav for tags",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "engines": {
         "ghost": ">=4.0.0",
         "ghost-api": "v4"
