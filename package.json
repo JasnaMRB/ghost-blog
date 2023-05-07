@@ -1,5 +1,5 @@
 {
-    "name": "Jam Journal",
+    "name": "jam-journal",
     "description": "Includes search, issues -> posts, nav for tags",
     "version": "2.0.1",
     "engines": {
