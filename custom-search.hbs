@@ -1,0 +1,91 @@
+{{!< default}} <main id="gh-main" class="gh-main">
+    <article class="gh-article {{post_class}}">
+        <header class="gh-article-header gh-canvas">
+            <h1 class="gh-article-title">Search</h1>
+        </header>
+        <div class="gh-content gh-canvas">
+            <p class="gh-article-excerpt">Posts only (not pages).</p>
+            <button type="button" class="collapsible">Browse tags</button>
+            <div class="content">
+                {{#get "tags" include="count.posts" limit="all" as |topic|}}
+                    <section class="gh-section">
+                        <div class="gh-topic">
+                            {{#foreach topic}}
+                                <a class="gh-topic-item" href="{{url}}">
+                                    <h3 class="gh-topic-name">{{name}}</h3>
+                                    <span class="gh-topic-count">
+                                        {{plural count.posts empty="0 posts" singular="% post" plural="% posts"}}
+                                    </span>
+                                </a>
+                            {{/foreach}}
+                        </div>
+                    </section>
+                {{/get}}
+            </div>
+            <form id="search-form">
+                <input id="search-field" />
+                <input id="search-button" type="button" onclick="search()" value="Search">
+                 <input id="clear-button" value="Clear" onclick="clearResults()" type="hidden" />
+            </form>
+            <div class="gh-outer">
+                <section>
+                    <h3 id="search-results-title" hidden>Results</h3>
+                    <div id="search-results"></div>           
+                </section>
+            </div>
+        </div>
+    </article>
+    </main>
+
+    <script src="{{asset "built/content-api.min.js"}}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script rel="javascript">
+        const api = new GhostContentAPI({
+            url: 'https://jasna.me',
+            key: '37ce826da6c1c1100c2b4b5b50',
+            version: "v4"
+        });
+        document.getElementById("search-form").addEventListener('submit', e => {
+            e.preventDefault();
+            search();
+        });
+        function search() {
+            const query = document.getElementById("search-field").value.trim().split(/[ ,]+/);
+            if (query.length == 0) return;
+            api.posts
+                .browse(
+                    {
+                        filter: `tags:[${query.toString()}]`,
+                        order: 'published_at DESC'
+                    }
+                )
+                .then((posts) => {
+                    const list = posts.map(buildResults).join('');
+                    document.getElementById("search-results").removeAttribute("hidden");
+                    document.getElementById("search-results-title").removeAttribute("hidden");
+                    document.getElementById("search-results").innerHTML = `<ul>${list}</ul>`;
+                    document.getElementById("clear-button").setAttribute("type", "button")
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        };
+        function zeroPad(num) {
+            if (num < 10) return `0${num}`;
+            else return `${num}`;
+        };
+        function buildResults(post) {
+            const date = new Date(post.created_at)
+            const day = zeroPad(date.getDate());
+            const month = zeroPad(date.getMonth());
+            const year = date.getFullYear()
+            const dateFormatted = `${year}-${month}-${day}`
+            return `<li><a href="${post.url}">${post.title}</a> (${dateFormatted})</li>`;
+        };
+        function clearResults() {
+            document.getElementById("search-results").setAttribute("hidden", true);
+            document.getElementById("search-field").setAttribute("value", "");
+            document.getElementById("clear-button").setAttribute("type", "hidden");
+            document.getElementById("search-results-title").setAttribute("hidden", true);
+        };
+    </script>
