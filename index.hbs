@@ -1,0 +1,105 @@
+{{!< default}}
+
+<main id="gh-main" class="gh-main gh-outer">
+    <div class="gh-inner">
+        <ul class="tag-nav">
+            <li><a href="/tag/code/">code</a></li>
+            <li><a href="/tag/cooking/">cooking</a></li>
+            <li><a href="/tag/musings">musings</a></li>
+            <li><a href="/search/">other</a></li>
+        </ul> 
+    </div>
+    <div class="gh-inner">
+        {{^is "paged"}}
+            {{#get "posts" limit="1"}}
+                {{#foreach posts}}
+                    <article class="gh-latest gh-card {{post_class}}">
+                        <a class="gh-card-link" href="{{url}}">
+                            <header class="gh-card-header">
+                                <div class="gh-article-meta">
+                                    <span class="gh-card-date">Latest — <time datetime="{{date format="YYYY-MM-DD"}}">{{date}}</time></span>
+                                </div>
+
+                                <h2 class="gh-article-title gh-card-title">{{title}}</h2>
+                            </header>
+
+                            <p class="gh-article-excerpt">{{excerpt}}</p>
+
+                            <footer class="gh-card-meta">
+                                <span class="gh-card-meta-wrapper">
+                                    <span class="gh-card-duration">{{reading_time}}</span>
+
+                                    {{^has visibility="public"}}
+                                        {{> icons/star}}
+                                    {{/has}}
+                                </span>
+                            </footer>
+                        </a>
+                    </article>
+                {{/foreach}}
+            {{/get}}
+        {{/is}}
+
+        <div class="gh-wrapper">
+            <section class="gh-section">
+                <h2 class="gh-section-title">More posts</h2>
+
+                <div class="gh-feed">
+                    {{#foreach posts}}
+                        {{^is "paged"}}
+                            {{^has index="0"}}
+                                {{> loop}}
+                            {{/has}}
+                        {{else}}
+                            {{> loop}}
+                        {{/is}}
+                    {{/foreach}}
+                </div>
+
+                <button class="gh-loadmore gh-btn">Load more posts</button>
+            </section>
+
+            <aside class="gh-sidebar">
+                <section class="gh-section">
+                    <h2 class="gh-section-title">About</h2>
+
+                    <div class="gh-about">
+                        {{#if @site.icon}}
+                            <img class="gh-about-icon" src="{{@site.icon}}" alt="{{@site.title}}">
+                        {{/if}}
+
+                        <section class="gh-about-wrapper">
+                            <h3 class="gh-about-title">{{@site.title}}</h3>
+
+                            {{#if @site.description}}
+                                <p class="gh-about-description">{{@site.description}}</p>
+                            {{/if}}
+                        </section>
+                    </div>
+                </section>
+
+                {{#get "posts" filter="featured:true" limit="all" as |featured|}}
+                    {{#if featured}}
+                        <section class="gh-section">
+                            <h3 class="gh-section-title">Featured</h3>
+
+                            <div class="gh-featured gh-feed">
+                                {{#foreach featured}}
+                                    {{> loop}}
+                                {{/foreach}}
+                            </div>
+                        </section>
+                    {{/if}}
+                {{/get}}
+                    <section class="gh-section">
+                        <h3 class="gh-section-title">Etc.</h3>
+                        <div class="gh-topic">
+                            <a class="gh-topic-item" href="https://www.goodreads.com/user/show/12745689-jasna">Goodreads</a>
+                            <a class="gh-topic-item" href="https://github.com/JasnaMRB">Github</a>
+                            <a class="gh-topic-item" href="https://www.linkedin.com/in/jasnarodulfablemberg/">LinkedIn</a>
+                        </div>          
+                    </section>
+            </aside>
+        </div>
+    </div>
+</main>
