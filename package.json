@@ -1,5 +1,5 @@
 {
-    "name": "jam-journal",
+    "name": "jam-journal-with-origin",
     "description": "Includes search, issues -> posts, nav for tags",
     "version": "2.1",
     "private": true,
