@@ -4,6 +4,7 @@ on:
     branches:
       - master
       - main
+      - merge-with-origin
 jobs:
   deploy:
     runs-on: ubuntu-22.04
