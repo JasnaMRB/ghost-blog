@@ -1,7 +1,7 @@
 {
     "name": "jam-journal",
     "description": "Includes search, issues -> posts, nav for tags",
-    "version": "2.0.3",
+    "version": "2.1",
     "private": true,
     "engines": {
         "ghost": ">=5.0.0",
