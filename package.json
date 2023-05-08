@@ -1,6 +1,5 @@
 {
 <<<<<<< HEAD
-<<<<<<< HEAD
   "name": "ghost-monorepo",
   "version": "0.0.0-private",
   "description": "The professional publishing platform",
@@ -126,19 +125,9 @@
     "name": "journal",
     "description": "A Ghost theme",
     "version": "1.0.0",
-=======
-    "name": "jam-journal",
-    "description": "Includes search, issues -> posts, nav for tags",
-<<<<<<< HEAD
-    "version": "2.0.3",
->>>>>>> 379aadcb8c (Add blog theme assets)
-=======
-    "version": "2.1",
->>>>>>> a9fcdacfd4 (Bump version)
     "private": true,
     "engines": {
-        "ghost": ">=5.0.0",
-        "ghost-api": "v4"
+        "ghost": ">=5.0.0"
     },
     "license": "MIT",
     "author": {
