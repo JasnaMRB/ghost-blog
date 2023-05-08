@@ -2,6 +2,14 @@
 
 <main id="gh-main" class="gh-main gh-outer">
     <div class="gh-inner">
+        <ul class="tag-nav">
+            <li><a href="/tag/code/">code</a></li>
+            <li><a href="/tag/cooking/">cooking</a></li>
+            <li><a href="/tag/musings">musings</a></li>
+            <li><a href="/search/">other</a></li>
+        </ul>
+    </div>
+    <div class="gh-inner">
         {{^is "paged"}}
             {{#foreach posts limit="1"}}
                 <article class="gh-latest gh-card {{post_class}}">
@@ -107,6 +115,14 @@
                         </section>
                     {{/if}}
                 {{/get}}
+               <section class="gh-section">
+                   <h3 class="gh-section-title">Etc.</h3>
+                   <div class="gh-topic">
+                       <a class="gh-topic-item" href="https://www.goodreads.com/user/show/12745689-jasna">Goodreads</a>
+                       <a class="gh-topic-item" href="https://github.com/JasnaMRB">Github</a>
+                       <a class="gh-topic-item" href="https://www.linkedin.com/in/jasnarodulfablemberg/">LinkedIn</a>
+                   </div>
+               </section>
 
                 {{#get "tags" include="count.posts" limit="all" as |topic|}}
                     <section class="gh-section">
