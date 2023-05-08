@@ -1,6 +1,6 @@
 # Jasna's Journal
 
-A fork of the Journal newsletter theme
+A fork of the [Journal newsletter theme](https://github.com/tryghost/journal)
 for [Ghost](http://github.com/tryghost/ghost/). 
 
 # Copyright & License
