@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{meta_title}}</title>
     <link rel="stylesheet" href="{{asset "built/screen.css"}}">
-
+    <link rel="stylesheet" href="{{asset "built/custom.css"}}">
     {{ghost_head}}
 </head>
 
@@ -58,6 +58,12 @@
                         {{/unless}}
                     </div>
                 {{/unless}}
+                <div class="gh-head-actions">
+                    <a class="gh-head-btn" href="/search/">
+                        Search
+                    </a>
+
+                </div>
             </div>
         </div>
     </header>
@@ -107,7 +113,7 @@
 {{/is}}
 
 <script src="{{asset "built/main.min.js"}}"></script>
-
+<script src="{{asset "built/custom.js"}}"></script>
 {{ghost_foot}}
 
 </body>
