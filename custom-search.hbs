@@ -1,10 +1,10 @@
 {{!< default}} <main id="gh-main" class="gh-main">
     <article class="gh-article {{post_class}}">
         <header class="gh-article-header gh-canvas">
-            <h1 class="gh-article-title">Search</h1>
+            <h1 class="gh-article-title">Tags</h1>
         </header>
         <div class="gh-content gh-canvas">
-            <p class="gh-article-excerpt">Posts only (not pages).</p>
+            <p class="gh-article-excerpt">Applies only to posts, not pages.</p>
             <button type="button" class="collapsible">Browse tags</button>
             <div class="content">
                 {{#get "tags" include="count.posts" limit="all" as |topic|}}
