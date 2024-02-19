@@ -125,6 +125,12 @@
                        <a class="gh-topic-item" href="https://www.linkedin.com/in/jasnarodulfablemberg/">LinkedIn</a>
                    </div>
                </section>
+                {{#get "tags" include="count.posts" limit="all" as |topic|}}
+                    <section class="gh-section">
+                        <h3 class="gh-section-title">Topics</h3>
+
+                    </section>
+                {{/get}}
             </aside>
         </div>
     </div>
