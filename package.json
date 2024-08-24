@@ -1,7 +1,7 @@
 {
     "name": "jam-journal-with-origin",
     "description": "Includes search, issues -> posts, nav for tags",
-    "version": "2.1",
+    "version": "2.1.0",
     "private": true,
     "engines": {
         "ghost": ">=5.0.0",
