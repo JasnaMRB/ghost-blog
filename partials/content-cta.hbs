@@ -9,7 +9,7 @@
     {{#has visibility="members"}}
         <h4 class="gh-cta-title">{{t "This post is for subscribers only"}}</h4>
     {{/has}}
-    {{#has visibility="filter"}}
+    {{#has access="members"}}
         <h4 class="gh-cta-title">{{t "This post is for subscribers on the {tiers} only" tiers=tiers}}</h4>
     {{/has}}
 
