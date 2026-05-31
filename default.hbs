@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{meta_title page=(t " (Page %)")}}</title>
+    <title>{{meta_title}}</title>
     <link rel="stylesheet" href="{{asset "built/screen.css"}}">
-
+    <link rel="stylesheet" href="{{asset "built/custom.css"}}">
     {{ghost_head}}
 </head>
 
@@ -109,7 +109,7 @@
 {{/is}}
 
 <script src="{{asset "built/main.min.js"}}"></script>
-
+<script src="{{asset "built/custom.js"}}"></script>
 {{ghost_foot}}
 
 </body>
