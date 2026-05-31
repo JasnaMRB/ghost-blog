@@ -1,8 +1,5 @@
 const {series, parallel, watch, src, dest} = require('gulp');
 const pump = require('pump');
-const fs = require('fs');
-const path = require('path');
-const order = require('ordered-read-streams');
 
 // gulp plugins and utils
 const livereload = require('gulp-livereload');
@@ -16,10 +13,6 @@ const zip = require('gulp-zip');
 const easyimport = require('postcss-easy-import');
 const autoprefixer = require('autoprefixer');
 const cssnano = require('cssnano');
-
-// translations support
-const { mergeLocales } = require('@tryghost/theme-translations/build');
-const sharedThemeAssetsPath = path.dirname(require.resolve('@tryghost/shared-theme-assets/package.json'));
 
 function serve(done) {
     livereload.listen();
@@ -55,24 +48,14 @@ function css(done) {
     ], handleError(done));
 }
 
-function getJsFiles(version) {
-    const jsFiles = [
-        src(`${sharedThemeAssetsPath}/assets/js/${version}/lib/**/*.js`),
-        src(`${sharedThemeAssetsPath}/assets/js/${version}/main.js`),
-    ];
-
-    if (fs.existsSync(`assets/js/lib`)) {
-        jsFiles.push(src(`assets/js/lib/*.js`));
-    }
-
-    jsFiles.push(src(`assets/js/main.js`));
-
-    return jsFiles;
-}
-
 function js(done) {
     pump([
-        order(getJsFiles('v1'), {sourcemaps: true}),
+        src([
+            'node_modules/@tryghost/shared-theme-assets/assets/js/v1/lib/**/*.js',
+            'node_modules/@tryghost/shared-theme-assets/assets/js/v1/main.js',
+            'assets/js/lib/*.js',
+            'assets/js/main.js'
+        ], {sourcemaps: true}),
         concat('main.min.js'),
         uglify(),
         dest('assets/built/', {sourcemaps: '.'}),
@@ -95,19 +78,11 @@ function zipper(done) {
     ], handleError(done));
 }
 
-function locales(done) {
-    mergeLocales({
-        local: './locales-local',
-        output: './locales'
-    })(done);
-}
-
-const localesWatcher = () => watch('./locales-local/**/*.json', locales);
 const hbsWatcher = () => watch(['*.hbs', 'partials/**/*.hbs'], hbs);
 const cssWatcher = () => watch('assets/css/**/*.css', css);
 const jsWatcher = () => watch('assets/js/**/*.js', js);
-const watcher = parallel(hbsWatcher, cssWatcher, jsWatcher, localesWatcher);
-const build = series(css, js, locales);
+const watcher = parallel(hbsWatcher, cssWatcher, jsWatcher);
+const build = series(css, js);
 
 exports.build = build;
 exports.zip = series(build, zipper);
