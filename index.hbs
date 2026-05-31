@@ -1,6 +1,15 @@
 {{!< default}}
 
-<main id="gh-main" class="gh-main gh-outer">
+<main id="gh-main" class="gh-main gh-outer" style="padding-top:0rem !important">
+    <div class="gh-inner">
+        <ul class="tag-nav">
+            <li><a href="/tag/code/">code</a></li>
+            <li><a href="/tag/japanese/">日本語</a></li>
+            <li><a href="/tag/cooking/">cooking</a></li>
+            <li><a href="/tag/musings">musings</a></li>
+            <li><a href="/search/">other</a></li>
+        </ul>
+    </div>
     <div class="gh-inner">
         {{^is "paged"}}
             {{#foreach posts limit="1"}}
@@ -31,7 +40,7 @@
 
         <div class="gh-wrapper">
             <section class="gh-section">
-                <h2 class="gh-section-title">{{t "More issues"}}</h2>
+                <h2 class="gh-section-title">{{t "More posts"}}</h2>
 
                 <div class="gh-feed">
                     {{^is "paged"}}
@@ -46,10 +55,10 @@
                 </div>
 
                 {{#match posts.length "=" 1}}
-                    {{t "Additional issues will be published soon."}}
+                    {{t "Additional posts will be published soon."}}
                 {{/match}}
 
-                <button class="gh-loadmore gh-btn">{{t "Load more issues"}}</button>
+                <button class="gh-loadmore gh-btn">{{t "Load more posts"}}</button>
             </section>
 
             <aside class="gh-sidebar">
@@ -74,7 +83,7 @@
                         {{^if @member.paid}}
                             <div class="gh-signup">
                                 {{^if @member}}
-                                    <p class="gh-signup-description">{{t "Sign up now to get access to the library of members-only issues."}}</p>
+                                    <p class="gh-signup-description">{{t "Sign up now to get access to the library of members-only posts."}}</p>
 
                                     <a class="gh-subscribe-input" href="#/portal/signup" data-portal="signup">
                                         <div class="gh-subscribe-input-text">
@@ -107,6 +116,15 @@
                         </section>
                     {{/if}}
                 {{/get}}
+                <section class="gh-section">
+                   <h3 class="gh-section-title">Etc.</h3>
+                   <div class="gh-topic">
+                       <a class="gh-topic-item" href="https://github.com/JasnaMRB">Github</a>
+                       <a class="gh-topic-item" href="https://www.goodreads.com/user/show/12745689-jasna">Goodreads</a>
+                       <a class="gh-topic-item" rel="me" href="https://hachyderm.io/@jasna">Mastodon</a>
+                       <a class="gh-topic-item" href="https://www.linkedin.com/in/jasnarodulfablemberg/">LinkedIn</a>
+                   </div>
+               </section>
 
                 {{#get "tags" include="count.posts" limit="100" as |topic|}}
                     <section class="gh-section">
@@ -117,7 +135,7 @@
                                 <a class="gh-topic-item" href="{{url}}">
                                     <h3 class="gh-topic-name">{{name}}</h3>
                                     <span class="gh-topic-count">
-                                        {{plural count.posts empty=(t "0 issues") singular=(t "1 issue") plural=(t "% issues")}}
+                                        {{plural count.posts empty=(t "0 posts") singular=(t "1 post") plural=(t "% posts")}}
                                     </span>
                                 </a>
                             {{/foreach}}
