@@ -7,7 +7,7 @@
             <p class="gh-article-excerpt">Applies only to posts, not pages.</p>
             <button type="button" class="collapsible">Browse tags</button>
             <div class="content">
-                {{#get "tags" include="count.posts" limit="all" as |topic|}}
+                {{#get "tags" include="count.posts" limit="100" as |topic|}}
                     <section class="gh-section">
                         <div class="gh-topic">
                             {{#foreach topic}}
