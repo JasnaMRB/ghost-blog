@@ -1,15 +1,6 @@
 {{!< default}}
 
-<main id="gh-main" class="gh-main gh-outer" style="padding-top:0rem !important">
-    <div class="gh-inner">
-        <ul class="tag-nav">
-            <li><a href="/tag/code/">code</a></li>
-            <li><a href="/tag/japanese/">日本語</a></li>
-            <li><a href="/tag/cooking/">cooking</a></li>
-            <li><a href="/tag/musings">musings</a></li>
-            <li><a href="/search/">other</a></li>
-        </ul>
-    </div>
+<main id="gh-main" class="gh-main gh-outer">
     <div class="gh-inner">
         {{^is "paged"}}
             {{#foreach posts limit="1"}}
@@ -17,7 +8,7 @@
                     <a class="gh-card-link" href="{{url}}">
                         <header class="gh-card-header">
                             <div class="gh-article-meta">
-                                <span class="gh-card-date">Latest — <time datetime="{{date format="YYYY-MM-DD"}}">{{date}}</time></span>
+                                <span class="gh-card-date">{{t "Latest"}} — <time datetime="{{date format="YYYY-MM-DD"}}">{{date format="DD MMM YYYY"}}</time></span>
                             </div>
                             <h2 class="gh-article-title gh-card-title">{{title}}</h2>
                         </header>
@@ -25,7 +16,7 @@
                         <p class="gh-article-excerpt">{{excerpt}}</p>
 
                         <footer class="gh-card-meta">
-                            <span class="gh-card-duration">{{reading_time}}</span>
+                            <span class="gh-card-duration">{{reading_time minute=(t "1 min read") minutes=(t "% min read")}}</span>
                             {{#if @site.comments_enabled}}
                                 {{comment_count class="gh-card-comments"}}
                             {{/if}}
@@ -40,7 +31,7 @@
 
         <div class="gh-wrapper">
             <section class="gh-section">
-                <h2 class="gh-section-title">More posts</h2>
+                <h2 class="gh-section-title">{{t "More issues"}}</h2>
 
                 <div class="gh-feed">
                     {{^is "paged"}}
@@ -55,15 +46,15 @@
                 </div>
 
                 {{#match posts.length "=" 1}}
-                    Additional posts will be published soon.
+                    {{t "Additional issues will be published soon."}}
                 {{/match}}
 
-                <button class="gh-loadmore gh-btn">Load more posts</button>
+                <button class="gh-loadmore gh-btn">{{t "Load more issues"}}</button>
             </section>
 
             <aside class="gh-sidebar">
                 <section class="gh-section">
-                    <h2 class="gh-section-title">About</h2>
+                    <h2 class="gh-section-title">{{t "About"}}</h2>
 
                     <div class="gh-about">
                         {{#if @site.icon}}
@@ -83,19 +74,19 @@
                         {{^if @member.paid}}
                             <div class="gh-signup">
                                 {{^if @member}}
-                                    <p class="gh-signup-description">Sign up now to get access to the library of members-only posts.</p>
+                                    <p class="gh-signup-description">{{t "Sign up now to get access to the library of members-only issues."}}</p>
 
                                     <a class="gh-subscribe-input" href="#/portal/signup" data-portal="signup">
                                         <div class="gh-subscribe-input-text">
                                             {{> icons/email}}
-                                            jamie@example.com
+                                            {{t "jamie@example.com"}}
                                         </div>
-                                        <div class="gh-subscribe-input-btn">Subscribe</div>
+                                        <div class="gh-subscribe-input-btn">{{t "Subscribe"}}</div>
                                     </a>
                                 {{else}}
                                     {{#if @setting.paid_members_enabled}}
-                                        <p class="gh-signup-description">Upgrade to a paid account to get full access.</p>
-                                        <a class="gh-signup-btn gh-btn gh-primary-btn" href="#/portal/account/plans" data-portal="account/plans">Upgrade now</a>
+                                        <p class="gh-signup-description">{{t "Upgrade to a paid account to get full access."}}</p>
+                                        <a class="gh-signup-btn gh-btn gh-primary-btn" href="#/portal/account/plans" data-portal="account/plans">{{t "Upgrade now"}}</a>
                                     {{/if}}
                                 {{/if}}
                             </div>
@@ -103,10 +94,10 @@
                     {{/if}}
                 </section>
 
-                {{#get "posts" filter="featured:true" limit="all" as |featured|}}
+                {{#get "posts" filter="featured:true" limit="5" as |featured|}}
                     {{#if featured}}
                         <section class="gh-section">
-                            <h3 class="gh-section-title">Featured</h3>
+                            <h3 class="gh-section-title">{{t "Featured"}}</h3>
 
                             <div class="gh-featured gh-feed">
                                 {{#foreach featured}}
@@ -116,21 +107,34 @@
                         </section>
                     {{/if}}
                 {{/get}}
-               <section class="gh-section">
-                   <h3 class="gh-section-title">Etc.</h3>
-                   <div class="gh-topic">
-                       <a class="gh-topic-item" href="https://github.com/JasnaMRB">Github</a>
-                       <a class="gh-topic-item" href="https://www.goodreads.com/user/show/12745689-jasna">Goodreads</a>
-                       <a class="gh-topic-item" rel="me" href="https://hachyderm.io/@jasna">Mastodon</a>
-                       <a class="gh-topic-item" href="https://www.linkedin.com/in/jasnarodulfablemberg/">LinkedIn</a>
-                   </div>
-               </section>
-                {{#get "tags" include="count.posts" limit="all" as |topic|}}
-                    <section class="gh-section">
-                        <h3 class="gh-section-title">Topics</h3>
 
+                {{#get "tags" include="count.posts" limit="100" as |topic|}}
+                    <section class="gh-section">
+                        <h3 class="gh-section-title">{{t "Topics"}}</h3>
+
+                        <div class="gh-topic">
+                            {{#foreach topic}}
+                                <a class="gh-topic-item" href="{{url}}">
+                                    <h3 class="gh-topic-name">{{name}}</h3>
+                                    <span class="gh-topic-count">
+                                        {{plural count.posts empty=(t "0 issues") singular=(t "1 issue") plural=(t "% issues")}}
+                                    </span>
+                                </a>
+                            {{/foreach}}
+                        </div>
                     </section>
                 {{/get}}
+
+                {{#if @site.recommendations_enabled}}
+                    <section class="gh-section">
+                        <h3 class="gh-section-title">Recommendations</h3>
+
+                        <div class="gh-recommendations">
+                            {{recommendations}}
+                            <button data-portal="recommendations">See all {{> "icons/arrow-right"}}</button>
+                        </div>
+                    </section>
+                {{/if}}
             </aside>
         </div>
     </div>
