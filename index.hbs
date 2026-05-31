@@ -93,7 +93,7 @@
                                         <div class="gh-subscribe-input-btn">{{t "Subscribe"}}</div>
                                     </a>
                                 {{else}}
-                                    {{#if @setting.paid_members_enabled}}
+                                    {{#if @site.paid_members_enabled}}
                                         <p class="gh-signup-description">{{t "Upgrade to a paid account to get full access."}}</p>
                                         <a class="gh-signup-btn gh-btn gh-primary-btn" href="#/portal/account/plans" data-portal="account/plans">{{t "Upgrade now"}}</a>
                                     {{/if}}
